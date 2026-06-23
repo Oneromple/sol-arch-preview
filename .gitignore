@@ -1,0 +1,11 @@
+# Local build tooling & sources (not needed to serve the static site)
+.venv/
+_raw/
+_content/
+build.py
+
+# System & caches
+.DS_Store
+__pycache__/
+*.pyc
+*.pyo
