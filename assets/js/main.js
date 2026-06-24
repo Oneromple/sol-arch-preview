@@ -116,13 +116,16 @@
     reveals.forEach(function (el) { io.observe(el); });
   }
 
-  /* ---------- Stat counters (count up on scroll) ---------- */
+  /* ---------- Stat counters (animate on scroll) ---------- */
+  /* year values count DOWN from the current year; plain counts count up from 0 */
   var counters = $$('.num[data-count]');
   function runCount(el) {
     var target = parseInt(el.getAttribute('data-count'), 10);
     if (isNaN(target)) return;
     if (reduceMotion) { el.textContent = target; return; }
-    var start = target >= 1900 ? target - 12 : 0, dur = 1200, t0 = null;
+    var nowYear = new Date().getFullYear();
+    if (isNaN(nowYear) || nowYear < 2026) nowYear = 2026; // default to the site's build year if the clock is off
+    var start = target >= 1900 ? nowYear : 0, dur = 1200, t0 = null;
     function step(ts) {
       if (!t0) t0 = ts;
       var p = Math.min((ts - t0) / dur, 1), eased = 1 - Math.pow(1 - p, 3);
