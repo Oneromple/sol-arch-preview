@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>(function(){var t;try{t=new URLSearchParams(location.search).get('theme');}catch(e){}if(t!=='light'&&t!=='dark'){try{t=localStorage.getItem('theme');}catch(e){}}if(t!=='light'&&t!=='dark'){try{t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}catch(e){t='dark';}}document.documentElement.setAttribute('data-theme',t);})();</script>
 <title>Venu Interior · Sol-Arch</title>
 <meta name="description" content="Venu Interior. Animation project by Sol-Arch, Miami.">
@@ -12,13 +12,14 @@
 <meta property="og:type" content="website">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="../assets/fonts/archivo-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/montserrat-500-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/fonts/inter-400-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 <div class="scroll-progress" aria-hidden="true"></div><a class="skip-link" href="#main">Skip to content</a><header class="header">
   <div class="header__inner">
-    <a class="wordmark" href="../index.html" aria-label="Sol-Arch home">Sol<span class="dot">·</span>Arch</a>
+    <a class="wordmark" href="../index.html" aria-label="Sol-Arch home">Sol<span class="steps" aria-hidden="true"><i></i><i></i><i></i></span>Arch</a>
     <div class="header__right">
       <nav class="nav" aria-label="Primary"><a href="../about.html">About</a><a href="../work.html" class="active">Work</a><a href="../team.html">Team</a><a href="../brochure.html">Brochure</a><a href="../contact.html">Contact</a></nav>
       <button class="theme-toggle" aria-label="Switch to light mode" aria-pressed="false" title="Toggle theme">
@@ -66,7 +67,7 @@
 </main><footer class="footer">
   <div class="shell footer__main">
     <div class="footer__brand">
-      <a class="wordmark" href="../index.html">Sol<span class="dot">·</span>Arch</a>
+      <a class="wordmark" href="../index.html">Sol<span class="steps" aria-hidden="true"><i></i><i></i><i></i></span>Arch</a>
       <p class="footer__tag">Architecture <span class="sq" aria-hidden="true"></span> Visualization <span class="sq" aria-hidden="true"></span> Construction</p>
     </div>
     <nav class="footer__nav" aria-label="Footer">
