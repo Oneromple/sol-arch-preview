@@ -206,7 +206,7 @@
         return (cat === 'all') || cats.indexOf(cat) !== -1;
       }).length;
       if (crumb) crumb.textContent = (cat === 'all')
-        ? 'WORK / ALL · ' + shown + ' PROJECTS'
+        ? 'WORK / ALL'
         : 'WORK / ' + (catLabels[cat] || cat).toUpperCase() + ' · ' + shown + ' PROJECTS';
     }
 
