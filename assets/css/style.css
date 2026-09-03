@@ -69,6 +69,7 @@ p{max-width:62ch}
 
 .sq{display:inline-block;width:.52em;height:.52em;border:1px solid var(--accent);
   vertical-align:.02em;margin:0 .5em;flex:none}
+.tag-pair{display:inline-flex;align-items:center;white-space:nowrap}
 
 .shell{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
 .section{padding-top:clamp(72px,10vw,120px);padding-bottom:clamp(72px,10vw,120px)}
