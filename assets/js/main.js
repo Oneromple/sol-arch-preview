@@ -176,12 +176,10 @@
     }, { passive: true });
   }
 
-  /* ---------- Portfolio: filter + GRID/INDEX toggle + hash ---------- */
   var grid = $('#work-grid'), table = $('#index-table');
   if (grid || table) {
     var pills = $$('.pill');
-    var cards = $$('[data-categories]');                 // grid cards + index rows (both filtered)
-    var countSet = grid ? $$('[data-categories]', grid) : cards; // count projects once, not per-view
+    var cards = $$('[data-categories]');
     var crumb = $('#work-crumb');
     var catLabels = {};
     pills.forEach(function (p) { catLabels[p.getAttribute('data-filter')] = p.getAttribute('data-label') || p.textContent.trim(); });
@@ -199,15 +197,8 @@
         var match = (cat === 'all') || cats.indexOf(cat) !== -1;
         el.classList.toggle('is-hidden', !match);
       });
-      // editorial feature-wide lead only in the default ALL grid (avoids a hole when filtered)
       gridCards.forEach(function (c, i) { c.classList.toggle('feature-wide', cat === 'all' && i === 0); });
-      var shown = countSet.filter(function (el) {
-        var cats = (el.getAttribute('data-categories') || '').split(' ');
-        return (cat === 'all') || cats.indexOf(cat) !== -1;
-      }).length;
-      if (crumb) crumb.textContent = (cat === 'all')
-        ? 'WORK / ALL'
-        : 'WORK / ' + (catLabels[cat] || cat).toUpperCase() + ' · ' + shown + ' PROJECTS';
+      if (crumb) crumb.textContent = 'WORK / ' + (catLabels[cat] || cat).toUpperCase();
     }
 
     pills.forEach(function (p) {
