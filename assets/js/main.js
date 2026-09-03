@@ -1,13 +1,9 @@
-/* Sol-Arch interactions. Pure vanilla JS, no dependencies. */
 (function () {
   'use strict';
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
-  /* ---------- Theme: system-aware, persists across pages (URL + localStorage),
-       and crossfades on toggle. URL carry makes it survive file:// navigation
-       even where localStorage is isolated per-file (e.g. Safari). ---------- */
   var root = document.documentElement;
   var themeBtn = $('.theme-toggle');
 
@@ -18,7 +14,7 @@
   function withTheme(href, t) {
     if (!href || href.charAt(0) === '#') return href;
     if (/^(https?:|mailto:|tel:|javascript:)/i.test(href)) return href;
-    if (!/\.html(\?|#|$)/.test(href)) return href; // only internal page links
+    if (!/\.html(\?|#|$)/.test(href)) return href;
     var hash = '', h = href, hi = h.indexOf('#');
     if (hi >= 0) { hash = h.slice(hi); h = h.slice(0, hi); }
     var base = h, query = '', qi = h.indexOf('?');
@@ -50,7 +46,7 @@
 
   var current = root.getAttribute('data-theme') || 'dark';
   syncThemeBtn(current);
-  if (explicit) decorateLinks(current); // keep choice when navigating
+  if (explicit) decorateLinks(current);
   if (themeBtn) {
     themeBtn.addEventListener('click', function () {
       explicit = true;
@@ -59,13 +55,12 @@
   }
   try {
     window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function (e) {
-      if (explicit) return; // respect explicit choice
+      if (explicit) return;
       root.setAttribute('data-theme', e.matches ? 'light' : 'dark');
       syncThemeBtn(root.getAttribute('data-theme'));
     });
   } catch (e) {}
 
-  /* ---------- Header: scrolled state + scroll-progress bar ---------- */
   var header = $('.header');
   var progress = $('.scroll-progress');
   function onScroll() {
@@ -79,7 +74,6 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  /* ---------- Mobile nav overlay ---------- */
   var burger = $('.burger'), overlay = $('.nav-overlay');
   function setNav(open) {
     if (!overlay) return;
@@ -98,7 +92,6 @@
   }
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setNav(false); });
 
-  /* ---------- Scroll reveals ---------- */
   var reveals = $$('.reveal');
   if (reduceMotion || !('IntersectionObserver' in window)) {
     reveals.forEach(function (el) { el.classList.add('in-view'); });
@@ -116,15 +109,13 @@
     reveals.forEach(function (el) { io.observe(el); });
   }
 
-  /* ---------- Stat counters (animate on scroll) ---------- */
-  /* year values count DOWN from the current year; plain counts count up from 0 */
   var counters = $$('.num[data-count]');
   function runCount(el) {
     var target = parseInt(el.getAttribute('data-count'), 10);
     if (isNaN(target)) return;
     if (reduceMotion) { el.textContent = target; return; }
     var nowYear = new Date().getFullYear();
-    if (isNaN(nowYear) || nowYear < 2026) nowYear = 2026; // default to the site's build year if the clock is off
+    if (isNaN(nowYear) || nowYear < 2026) nowYear = 2026;
     var start = target >= 1900 ? nowYear : 0, dur = 1200, t0 = null;
     function step(ts) {
       if (!t0) t0 = ts;
@@ -145,7 +136,6 @@
     }
   }
 
-  /* ---------- Hero: crossfade rotation + cycling project index ---------- */
   var heroImgs = $$('.hero__media img');
   var heroIndex = $('#hero-index');
   if (heroImgs.length) {
@@ -231,14 +221,11 @@
     });
   }
 
-  /* ---------- YouTube facade (lite embed) ---------- */
   $$('.video-facade').forEach(function (f) {
     var activate = function () {
       var id = f.getAttribute('data-yt');
       if (!id) return;
-      // A YouTube embed can't initialise from a file:// page (null origin -> "Error 153,
-      // video player configuration error"). Locally, open it on YouTube; when the site is
-      // served over http(s) the inline embed works normally.
+
       if (location.protocol === 'file:') {
         window.open('https://www.youtube.com/watch?v=' + id, '_blank', 'noopener');
         return;
@@ -259,7 +246,6 @@
     });
   });
 
-  /* ---------- Lightbox (project galleries) ---------- */
   var shots = $$('.gallery .shot[data-full]');
   if (shots.length) {
     var single = shots.length <= 1;
@@ -322,7 +308,7 @@
         else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
       }
     });
-    // swipe
+
     var sx = 0;
     lb.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
     lb.addEventListener('touchend', function (e) {
@@ -331,7 +317,6 @@
     }, { passive: true });
   }
 
-  /* ---------- Contact enquiry form (no backend; honest inline confirmation) ---------- */
   var enquiry = $('.enquiry');
   if (enquiry) {
     enquiry.addEventListener('submit', function (e) {
